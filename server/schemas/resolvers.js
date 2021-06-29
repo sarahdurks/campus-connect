@@ -22,12 +22,12 @@ const resolvers = {
     // get conversations by username
     conversations: async (parent, { username }) => {
       const params = username ? { username } : {};
-      return Conversation.find(params).sort({ createdAt: -1});
+      return Conversation.find(params).sort({ createdAt: -1 });
     },
     // get conversation by id
     conversation: async (parent, { _id }) => {
       return Conversation.findOne({ _id });
-  }
+    }
 
     // Receive Messages sent to you
     // getMsgs: async (_parent, { from }, context) => {
@@ -70,8 +70,8 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-// how to get other person req.body.senderId vs req.body.receiverId 
-    newConversation: async(parent, args, context) => {
+    // how to get other person req.body.senderId vs req.body.receiverId 
+    newConversation: async (parent, args, context) => {
       if (context.user) {
         const conversation = await Conversation.create({ ...args, members: [context.user._id, receiverId] });
 
@@ -79,13 +79,24 @@ const resolvers = {
           { _id: context.user._id },
           { $push: { conversations: conversation._id } },
           { new: true }
-      );
+        );
 
-      return conversation;
+        return conversation;
       }
 
       throw new AuthenticationError('You need to be logged in!');
-    } 
+    },
+    // posting a new message
+    newMessage: async (parent, args, context) => {
+      if (context.user) {
+
+        const message = await Message.create(args);
+        return message;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+
+    },
+
   },
 };
 

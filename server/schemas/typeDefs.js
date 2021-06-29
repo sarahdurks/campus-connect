@@ -36,6 +36,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     newConversation(receiverId: ID!): User
+    newMessage(conversationId: String!, sender: String!, text: String!) : User
   }
 `;
 
