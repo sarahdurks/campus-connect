@@ -28,7 +28,8 @@ const typeDefs = gql`
   type Query {
     user(username: String!): User
     users: [User]
-    # getMsgs: (sender: String): [Message]
+    conversations(username: String): [Conversation]
+    conversation(_id: ID!): Conversation
   }
 
   type Mutation {

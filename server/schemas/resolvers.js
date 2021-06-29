@@ -19,6 +19,16 @@ const resolvers = {
       throw new AuthenticationError('Not logged in');
     },
 
+    // get conversations by username
+    conversations: async (parent, { username }) => {
+      const params = username ? { username } : {};
+      return Conversation.find(params).sort({ createdAt: -1});
+    },
+    // get conversation by id
+    conversation: async (parent, { _id }) => {
+      return Conversation.findOne({ _id });
+  }
+
     // Receive Messages sent to you
     // getMsgs: async (_parent, { from }, context) => {
     //   // check if the user is logged in

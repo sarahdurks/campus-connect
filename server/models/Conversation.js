@@ -5,6 +5,10 @@ const conversationSchema = new Schema(
     members: {
         type: Array,
     },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    }
   },
   { timestamps: true }
 );
