@@ -2,7 +2,7 @@ import "./messenger.css"
 import Conversation from "../../components/Conversation/Conversation";
 import Message from "../../components/Message/Message";
 
-const Messenger = () => {
+const Messenger = (user) => {
     return (
         <div className="messenger">
             <div className="chatMenu">
@@ -18,7 +18,7 @@ const Messenger = () => {
                 <div className="chatBoxWrapper">
                     <div className="chatBoxTop">
                         <Message />
-                        <Message />
+                        <Message user={true} />
                         <Message />
                         <Message />
                     </div>

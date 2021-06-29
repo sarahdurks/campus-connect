@@ -1,6 +1,6 @@
 import "./message.css";
 
-const Message = (user) => {
+const Message = ({user}) => {
     return (
         <div className={user ? "message user" : "message"}>
             <div className="messageTop">
