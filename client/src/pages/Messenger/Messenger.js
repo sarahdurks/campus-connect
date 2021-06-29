@@ -1,4 +1,5 @@
 import "./messenger.css"
+import Conversation from "../../components/Conversation/Conversation";
 
 const Messenger = () => {
     return (
@@ -6,6 +7,10 @@ const Messenger = () => {
             <div className="chatMenu">
                 <div className="chatMenuWrapper">
                     <input className="chatMenuInput" placeholder="Search for Friends" type="text"/>
+                    <Conversation />
+                    <Conversation />
+                    <Conversation />
+                    <Conversation />
                 </div>
             </div>
             <div className="chatBox">
