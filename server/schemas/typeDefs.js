@@ -12,6 +12,16 @@ type User {
     user: User
 }
 
+type Users {
+  username: String!
+  email: String!
+}
+
+type Message {
+  _id: ID!
+  msg: String!
+}
+
 type Query {
   user(username: String!): User
 }
