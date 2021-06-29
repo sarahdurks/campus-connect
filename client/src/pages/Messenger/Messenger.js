@@ -1,6 +1,7 @@
 import "./messenger.css"
 import Conversation from "../../components/Conversation/Conversation";
 import Message from "../../components/Message/Message";
+import Online from "../../components/Online/Online"
 
 const Messenger = (user) => {
     return (
@@ -39,7 +40,7 @@ const Messenger = (user) => {
             </div>
             <div className="chatOnline">
                 <div className="chatOnline">
-                    online
+                    <Online />
                 </div>
             </div>
         </div>
