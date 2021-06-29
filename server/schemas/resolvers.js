@@ -73,6 +73,8 @@ const resolvers = {
 
       return conversation;
       }
+
+      throw new AuthenticationError('You need to be logged in!');
     } 
   },
 };
