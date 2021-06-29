@@ -16,13 +16,25 @@ const Messenger = (user) => {
             </div>
             <div className="chatBox">
                 <div className="chatBoxWrapper">
-                    <div className="chatBoxTop">
+                    <div className="messagesHere">
                         <Message />
                         <Message user={true} />
                         <Message />
                         <Message />
+                        <Message user={true} />
+                        <Message user={true} />
+                        <Message user={true} />
+                        <Message user={true} />
+                        <Message user={true} />
+                        <Message user={true} />
+                        <Message user={true} />
+                        <Message user={true} />
+                        <Message user={true} />
                     </div>
-                    <div className="chatBoxBottom"></div>
+                    <div className="chatBoxBottom">
+                        <textarea className="messageInput"placeholder="Write Your Message"></textarea>
+                        <button className="submit">Send</button>
+                    </div>
                 </div>
             </div>
             <div className="chatOnline">
