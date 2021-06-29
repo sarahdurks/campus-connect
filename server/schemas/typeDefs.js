@@ -6,6 +6,7 @@ const typeDefs = gql`
       _id: ID!
       username: String
       email: String
+      conversations: [Conversation]
     }
   type Auth {
       token: ID!
@@ -33,6 +34,7 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
+    newConversation(receiverId: ID!): User
   }
 `;
 

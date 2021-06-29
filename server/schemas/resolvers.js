@@ -59,7 +59,21 @@ const resolvers = {
 
       const token = signToken(user);
       return { token, user };
-    }
+    },
+// how to get other person req.body.senderId vs req.body.receiverId 
+    newConversation: async(parent, args, context) => {
+      if (context.user) {
+        const conversation = await Conversation.create({ ...args, members: [context.user._id, receiverId] });
+
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $push: { conversations: conversation._id } },
+          { new: true }
+      );
+
+      return conversation;
+      }
+    } 
   },
 };
 
