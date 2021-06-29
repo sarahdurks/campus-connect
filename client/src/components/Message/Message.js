@@ -1,8 +1,8 @@
 import "./message.css";
 
-const Message = () => {
+const Message = (user) => {
     return (
-        <div className="message">
+        <div className={user ? "message user" : "message"}>
             <div className="messageTop">
                 {/* image placeholder in case we want to include
                 <img 

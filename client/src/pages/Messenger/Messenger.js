@@ -18,6 +18,9 @@ const Messenger = () => {
                 <div className="chatBoxWrapper">
                     <div className="chatBoxTop">
                         <Message />
+                        <Message />
+                        <Message />
+                        <Message />
                     </div>
                     <div className="chatBoxBottom"></div>
                 </div>
