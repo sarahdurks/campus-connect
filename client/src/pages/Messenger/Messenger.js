@@ -5,7 +5,7 @@ const Messenger = () => {
         <div className="messenger">
             <div className="chatMenu">
                 <div className="chatMenuWrapper">
-                    menu
+                    <input className="chatMenuInput" placeholder="Search for Friends" type="text"/>
                 </div>
             </div>
             <div className="chatBox">

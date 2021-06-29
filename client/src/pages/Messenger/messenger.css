@@ -7,10 +7,23 @@
     flex: 3.5;
 }
 
+.chatMenuInput {
+    width: 90%;
+    padding: 10px, 0;
+    border: none;
+    border-bottom: 3px solid black;
+}
+
 .chatBox{
     flex: 5.5;
 }
 
 .chatOnline{
     flex: 3;
+}
+
+.chatMenuWrapper, .chatBoxWrapper, .chatOnline {
+    padding: 10px;
+    /* background-color: blueviolet; */
+    height: 100%;
 }
