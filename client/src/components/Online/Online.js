@@ -5,7 +5,8 @@ const Online = () => {
         <div className="online">
             <div className="friend">
                 <div className="imgContainer">
-                    <img src="" alt=""/>
+                    {/* placeholder if we want user image */}
+                    {/* <img className="onlineImg"src="" alt=""/> */}
                     <div className="onlineBadge"></div>
                 </div>
                 <span className="friendName">Chris Olson</span>

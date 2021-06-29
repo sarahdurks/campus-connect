@@ -1,0 +1,32 @@
+.friend {
+    display: flex;
+    align-items: center;
+    font-weight: 550;
+    cursor: pointer;
+}
+
+/* if we want image */
+/* .onlineImg  {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+} */
+
+.imgContainer {
+    position: relative;
+}
+
+.onlineBadge {
+    top: 5px;
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: yellowgreen;
+}
+
+.friendName {
+    padding: 5px;
+}
+

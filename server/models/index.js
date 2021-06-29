@@ -1,3 +1,4 @@
 const User = require('./User');
+const Conversation = require("./Conversation")
 
-module.exports = { User };
+module.exports = { User, Conversation };
