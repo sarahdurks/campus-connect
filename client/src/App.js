@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { ApolloProvider } from '@apollo/react-hooks';
+import { ApolloProvider } from '@apollo/client';
 import ApolloClient from 'apollo-boost';
 import './App.css';
 import Home from './pages/Home';
@@ -9,6 +9,7 @@ import Footer from './components/Footer/Footer';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import NoMatch from './pages/NoMatch';
+import Messenger from "./pages/Messenger/Messenger";
 
 const client = new ApolloClient({
   request: operation => {
@@ -32,6 +33,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
+          <Route exact path="/messenger" component={Messenger} />
           {/* <Route exact path="/chat" component={Chat} /> */}
           <Route component={NoMatch} />
         </Switch>

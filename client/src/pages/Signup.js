@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import CreateIcon from '@material-ui/icons/Create';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 
 import Auth from '../utils/auth';
