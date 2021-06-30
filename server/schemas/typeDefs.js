@@ -30,6 +30,7 @@ const typeDefs = gql`
     users: [User]
     conversations(username: String): [Conversation]
     conversation(_id: ID!): Conversation
+    messages(conversationId: String): [Message]
   }
 
   type Mutation {

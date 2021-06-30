@@ -27,7 +27,13 @@ const resolvers = {
     // get conversation by id
     conversation: async (parent, { _id }) => {
       return Conversation.findOne({ _id });
-    }
+    },
+
+    // get messages by conversation id
+    messages: async (parent, { conversationId }) => {
+      const params = conversationId ? { conversationId } : {};
+      return Message.find(params).sort({ createdAt: -1 });
+  },
 
     // Receive Messages sent to you
     // getMsgs: async (_parent, { from }, context) => {
