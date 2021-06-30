@@ -4,6 +4,10 @@ const dateFormat = require('../utils/dateFormat');
 
 const messageSchema = new Schema(
     {
+        conversationId: {
+            type: String,
+            required: true
+        },
         msg: {
             type: String,
             required: true,

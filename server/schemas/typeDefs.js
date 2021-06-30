@@ -12,6 +12,7 @@ type User {
 }
 type Message {
   _id: ID!
+  conversationId: String
   msg: String!
   from: String!
   to: String!

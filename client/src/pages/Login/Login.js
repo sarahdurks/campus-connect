@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import { useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import { LOGIN_USER } from '../../utils/queries';
 import { useAuthDispatch } from '../../utils/auth';
 
@@ -89,17 +89,18 @@ const Login = () => {
     const [open, setOpen] = useState(false);
 
     const dispatch = useAuthDispatch();
-
-    const { data, loading, error } = useQuery(LOGIN_USER);
-
-    if (error) {
-        console.log(`login error ${error}`);
-        setErrors(error);
-        setOpen(true);
-        setAlertMsg(errors);
-        setSeverity('error');
-    }
+    // const { data, loading, error } = useQuery(LOGIN_USER, { variables: variables} );
+    const [login, { data, loading, error }] = useLazyQuery(LOGIN_USER);
+    console.log( data );
+    // if (error) {
+    //     console.log(`login error ${error}`);
+    //     setErrors(error);
+    //     setOpen(true);
+    //     setAlertMsg(errors);
+    //     setSeverity('error');
+    // }
     if (data) {
+        console.log({ data });
         dispatch({ type: 'LOGIN', payload: data.login })
         setOpen(true)
         setAlertMsg('Logged in');
@@ -110,8 +111,8 @@ const Login = () => {
 
     const handleFormSubmit = (e) => {
         e.preventDefault()
-
-        data({ variables })
+        login({ variables })
+        console.log ({ variables })
     }
 
     return (
