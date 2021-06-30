@@ -91,7 +91,7 @@ const Login = () => {
     const dispatch = useAuthDispatch();
     // const { data, loading, error } = useQuery(LOGIN_USER, { variables: variables} );
     const [login, { data, loading, error }] = useLazyQuery(LOGIN_USER);
-    console.log( data );
+    // console.log( data );
     // if (error) {
     //     console.log(`login error ${error}`);
     //     setErrors(error);
@@ -100,7 +100,7 @@ const Login = () => {
     //     setSeverity('error');
     // }
     if (data) {
-        console.log({ data });
+        // console.log({ data });
         dispatch({ type: 'LOGIN', payload: data.login })
         setOpen(true)
         setAlertMsg('Logged in');
