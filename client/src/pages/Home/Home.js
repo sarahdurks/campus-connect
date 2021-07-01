@@ -1,7 +1,6 @@
 import React from 'react';
 import { useAuthState } from '../../utils/auth';
 import { Typography } from '@material-ui/core';
-import Onboard from '../../components/Onboard/Onboard';
 
 const Home = () => {
     const { user } = useAuthState();
@@ -12,7 +11,7 @@ const Home = () => {
                 <>
                     <Typography>
                         Welcome to Campus Connect
-                        <Onboard></Onboard>
+         
                     </Typography>
                 </>
             ) : (
