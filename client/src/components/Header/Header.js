@@ -28,8 +28,11 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingLeft: '1rem',
-        paddingTop: '1.5rem',
+        paddingLeft: '1rem'
+    },
+    clock: {
+        fontFamily: `Poppins`,
+        fontSize: `1rem`
     },
     listItem: {
         marginRight: theme.spacing(2),
@@ -47,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     title: {
+     
+        fontFamily: "Poppins",
+        fontWeight: 800,
         color: "whitesmoke",
         '@media (max-width:1200px)': {
             fontSize: '1.2rem',
@@ -80,21 +86,22 @@ const Header = () => {
                     <List>
                         {!user ? (
                             <>
-                                <Button className={classes.listItem} href="/login"><DoubleArrowIcon /> Login</Button>
-                                <Button className={classes.listItem} href="/signup"><CreateIcon /> Signup</Button>
-                            </>
-                        ) : (
-                            <>
-                               <Clock
+                              <Clock
                             className={classes.clock}
                             format={'h:mm a'}
-                             style={{fontSize: '1.5em'}}
+                             style={{fontSize: '1.1em'}}
                                 ticking={true} />
                              <Switch //https://material-ui.com/components/switches/
                                 color="primary"
                                  name="checkedB"
                                 inputProps={{ 'aria-label': 'primary checkbox' }}
                                 />
+                                <Button className={classes.listItem} href="/login"><DoubleArrowIcon /> Login</Button>
+                                <Button className={classes.listItem} href="/signup"><CreateIcon /> Signup</Button>
+                            </>
+                        ) : (
+                            <>
+                             
                                 <Button className={classes.listItem} href="/chat"><ChatIcon /> Chat</Button>
                                 <Button className={classes.listItem} href="/" onClick={logout}><ExitToAppIcon /> Logout</Button>
                             </>
