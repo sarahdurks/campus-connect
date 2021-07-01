@@ -7,7 +7,9 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAuthDispatch } from '../../utils/auth';
 import { useAuthState } from '../../utils/auth';
-
+//Clock and Switch
+import Switch from '@material-ui/core/Switch';
+import Clock from 'react-live-clock';
 // Icons
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import CreateIcon from '@material-ui/icons/Create';
@@ -83,6 +85,16 @@ const Header = () => {
                             </>
                         ) : (
                             <>
+                               <Clock
+                            className={classes.clock}
+                            format={'h:mm a'}
+                             style={{fontSize: '1.5em'}}
+                                ticking={true} />
+                             <Switch //https://material-ui.com/components/switches/
+                                color="primary"
+                                 name="checkedB"
+                                inputProps={{ 'aria-label': 'primary checkbox' }}
+                                />
                                 <Button className={classes.listItem} href="/chat"><ChatIcon /> Chat</Button>
                                 <Button className={classes.listItem} href="/" onClick={logout}><ExitToAppIcon /> Logout</Button>
                             </>
