@@ -86,7 +86,7 @@ const Home = () => {
             <Grid> <Typography className={classes.textDetail}>Pick a fave tech:</Typography></Grid>
             <Funavatar avatars={businessLogos} /> 
 
-            <Grid> <Typography className={classes.textDetail}>If you're gonna party, who is it with?</Typography></Grid>
+            <Grid> <Typography className={classes.textDetail}>If you're gonna party, what's your vibe?</Typography></Grid>
            
             <Funavatar avatars={funLogos} />
             <Typography className={classes.subHeader}>Social Profiles</Typography>
