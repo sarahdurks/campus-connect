@@ -24,7 +24,7 @@ const funLogos =
             title: `dexter`,
             image: `https://res.cloudinary.com/www-actionnetwork-com/image/upload/v1625022843/dexter_gfisah.png`,
             nameStyle: `funlogo`,
-            tip: `I dare you to say something bad about carebears.`
+            tip: ` There is gloom, and doom while things go boom in Dexter's Lab!`
 
         },
         {
@@ -32,7 +32,7 @@ const funLogos =
             title: `bojack`,
             image: `https://res.cloudinary.com/www-actionnetwork-com/image/upload/v1625022843/Frame_8_khurfl.png`,
             nameStyle: `funlogo`,
-            tip:` There is gloom, and doom while things go boom in Dexter's Lab!`
+            tip:`When You Look At Someone Through Rose-Colored Glasses, All The Red Flags Just Look Like Flags.”`
         },
 
         {
