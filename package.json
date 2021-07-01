@@ -28,6 +28,8 @@
   },
   "dependencies": {
     "dotenv": "^10.0.0",
-    "if-env": "^1.0.4"
+    "if-env": "^1.0.4",
+    "moment": "^2.29.1",
+    "react-live-clock": "^5.2.0"
   }
 }
