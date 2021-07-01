@@ -7,8 +7,6 @@ import Home from './pages/Home/Home';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import Login from './pages/Login/Login';
-// import Onboard from './pages/Onboard/Onboard';
-
 import Signup from './pages/Signup/Signup';
 import NoMatch from './pages/NoMatch';
 import Chat from './pages/Chat/Chat';
@@ -51,7 +49,6 @@ function App() {
               <DynamicRoute exact path="/" component={Home} guest />
               <DynamicRoute exact path="/login" component={Login} guest />
               <DynamicRoute exact path="/signup" component={Signup} guest />
-              {/* <DynamicRoute exact path="/onboard" component={Onboard} guest /> */}
               <DynamicRoute exact path="/chat" component={Chat} authenticated />
               <DynamicRoute component={NoMatch} guest />
             </Switch>

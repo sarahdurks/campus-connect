@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function ImageAvatars(props) {
+function Funavatar(props) {
   const classes = useStyles();
  // avatar select function () { was clicked } use radio button to return item.title radio name will relate via name
  // write a function only one radio button can be checked
@@ -28,3 +28,4 @@ export default function ImageAvatars(props) {
   );
   
 }
+export default  Funavatar
