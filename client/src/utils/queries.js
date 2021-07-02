@@ -11,6 +11,17 @@ export const LOGIN_USER = gql`
   }
 `;
 
+// I had to change the login-user to get the login page to work. 
+// export const LOGIN_USER = gql`
+//   query login($email: String!, $password: String!) {
+//     login(email: $email, password: $password) {
+//       token
+//       username
+//       _id
+//     }
+//   }
+// `;
+
 export const GET_USERS = gql`
 query getUsers {
   getUsers {
