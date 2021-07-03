@@ -3,6 +3,7 @@ import "./userList.css";
 import { useQuery } from '@apollo/client';
 import { GET_USERS } from '../../utils/queries';
 import { useMessageDispatch, useMessageState } from '../../utils/messagecontext';
+import { MessageProvider } from '../../utils/messagecontext';
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -79,11 +80,13 @@ const UserList = () => {
         })
     }
     return (
-        <Box className={classes.container} component="div">
-            <List>
-                {usersMarkup}
-            </List>
-        </Box>
+        <MessageProvider>
+            <Box className={classes.container} component="div">
+                <List>
+                    {usersMarkup}
+                </List>
+            </Box>
+        </MessageProvider>
     );
 }
 export default UserList;

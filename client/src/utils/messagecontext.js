@@ -8,6 +8,7 @@ const messageReducer = (state, action) => {
     const { username, message, messages, reaction } = action.payload
     switch (action.type) {
         case 'SET_USERS':
+            // console.log(action.payload);
             return {
                 ...state,
                 users: [...action.payload]

@@ -2,17 +2,19 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { useLazyQuery, useMutation } from '@apollo/client';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 // import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
+// import Grid from '@material-ui/core/Grid';
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Send from '@material-ui/icons/Send';
+import { useSubscription } from '@apollo/client';
 import { SEND_MESSAGE } from '../../utils/mutations';
 import { GET_MESSAGES } from '../../utils/queries';
+import { useAuthState } from '../../utils/auth';
+import { NEW_MESSAGE, NEW_REACTION } from '../../utils/subscriptions';
 import { useMessageDispatch, useMessageState } from '../../utils/messagecontext';
+import { MessageProvider } from '../../utils/messagecontext';
 import Message from './Message';
- 
-import InputAdornment from '@material-ui/core/InputAdornment';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,8 +35,6 @@ const useStyles = makeStyles((theme) => ({
     },
     field: {
         margin: "1rem 0rem",
-        width: "100%"
-
     },
 }));
 
@@ -66,11 +66,18 @@ const InputField = withStyles({
 
 const ChatBody = () => {
     const classes = useStyles();
-    const { users } = useMessageState()
-    const dispatch = useMessageDispatch();
+    const { users } = useMessageState();
+    const { user } = useAuthState();
+    const { messageDispatch } = useMessageDispatch();
     const [content, setContent] = useState('')
     const selectedUser = users?.find((u) => u.selected === true)
     const messages = selectedUser?.messages
+    const { data: messageData, error: messageError } = useSubscription(
+        NEW_MESSAGE
+    )
+    const { data: reactionData, error: reactionError } = useSubscription(
+        NEW_REACTION
+    )
 
     const [getMsgs, {
         loading: msgLoading, data: msgData },
@@ -97,6 +104,46 @@ const ChatBody = () => {
             })
         }
     }, [msgData]);
+
+    useEffect(() => {
+        if (messageError) console.log(messageError)
+
+        if (messageData) {
+            const message = messageData.newMessage
+            const otherUser = user.username === message.to ? message.from : message.to
+
+            messageDispatch({
+                type: 'ADD_MESSAGE',
+                payload: {
+                    username: otherUser,
+                    message,
+                },
+            })
+        }
+    }, [messageError, messageData])
+
+    useEffect(() => {
+        if (reactionError) console.log(reactionError)
+
+        if (reactionData) {
+            const reaction = reactionData.newReaction
+            const otherUser =
+                user.username === reaction.message.to
+                    ? reaction.message.from
+                    : reaction.message.to
+
+            messageDispatch({
+                type: 'ADD_REACTION',
+                payload: {
+                    username: otherUser,
+                    reaction,
+                },
+            })
+        }
+    }, [reactionError, reactionData])
+
+
+
 
     const handleFormSubmit = async event => {
         event.preventDefault();
@@ -130,40 +177,36 @@ const ChatBody = () => {
         )
     }
     return (
-
-        <div>
+        <MessageProvider>
+            <div>
 
                 {selectedChatMarkup}
 
-            <Box component="form" className={classes.form} onSubmit={handleFormSubmit}>
+                <Box component="form" className={classes.form} onSubmit={handleFormSubmit}>
 
-            <TextField
-      
-           variant="outlined"
-           name='msg'
-           type='text'
-           value={content}
-           onChange={(e) => setContent(e.target.value)}
-           inputProps={{ className: classes.input }}
-           className={classes.field}
-             label="Send Message"
-                placeholder="Send a message..."
-                 InputProps={{
-                   endAdornment: (
-                                   <InputAdornment position="end">
-                                        <Button
-                 
-                   endIcon={<Send />}
-                   type="submit" >
-                  
-               </Button>
-                  </InputAdornment>
-                      ),
-                    }}
-                />
-            </Box>
+                    <InputField
+                        fullWidth={true}
+                        label="Message"
+                        variant="outlined"
+                        required
+                        name='msg'
+                        type='text'
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                        inputProps={{ className: classes.input }}
+                        className={classes.field}
+                    />
+                    <Button
+                        variant="outlined"
+                        endIcon={<Send />}
+                        type="submit"
+                        className={classes.button}>
+                        Send
+                </Button>
+                </Box>
 
             </div>
+        </MessageProvider>
     )
 }
 
