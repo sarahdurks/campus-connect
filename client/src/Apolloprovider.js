@@ -28,7 +28,7 @@ import { getMainDefinition } from '@apollo/client/utilities';
 
 let httpLink = createHttpLink({
 	// uri: '/graphql/',
-	uri: 'http://localhost:3001/graphql/'
+	uri: 'https://campus-connect21.herokuapp.com/graphql'
 });
 
 const authLink = setContext((_, { headers }) => {
