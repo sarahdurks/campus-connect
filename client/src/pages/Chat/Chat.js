@@ -15,6 +15,7 @@ import { NEW_MESSAGE, NEW_REACTION, NEW_USER } from '../../utils/subscriptions';
 import { Divider, Avatar, Hidden, SwipeableDrawer, Button } from '@material-ui/core';
 // import { isNonEmptyArray } from '@apollo/client/utilities';
 
+
 const Chat = props => {
 
 	const useStyles = makeStyles(theme => ({
