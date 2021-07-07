@@ -6,7 +6,7 @@ const { typeDefs, resolvers } = require('./schemas');
 const path = require('path');
 const db = require('./config/connection');
 const { authMiddleware } = require('./utils/auth');
-require('dotenv').config();
+// require('dotenv').config();
 
 // Intergrating apolloserver with express and subscription
 async function startApolloServer() {
@@ -46,6 +46,7 @@ if (process.env.NODE_ENV === 'production') {
 //   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 // });
 
+// once the database is open, start the server
 db.once('open', () => {
   startApolloServer();
 });
