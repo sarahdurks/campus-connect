@@ -90,14 +90,17 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-
-
 const avatars = [];
 
 const Onboard = () => {
 	const classes = useStyles();
 	const { user } = useAuthState();
-	const [formState, setFormState] = useState({ businessLogo: '', funLogo: '', linkedin: '', Instagram: '' });
+	const [formState, setFormState] = useState({
+		businessLogo: '',
+		funLogo: '',
+		linkedin: '',
+		Instagram: ''
+	});
 	const [createProfile, { error }] = useMutation(CREATE_PROFILE);
 
 	const handleClick = function (avatar, type) {
@@ -105,34 +108,38 @@ const Onboard = () => {
 			setFormState({
 				...formState,
 				businessLogo: avatar
-			})
+			});
 			console.log('get down to business');
 		} else if (type === 'funlogo') {
 			setFormState({
 				...formState,
 				funLogo: avatar
-			})
+			});
 			console.log('let loose');
 		}
-	}
+	};
 	const connectButtonClick = function () {
 		try {
 			createProfile({
-				variables: { businessLogo: formState.businessLogo, funLogo: formState.funLogo, Instagram: formState.Instagram, linkedin: formState.linkedin },
+				variables: {
+					businessLogo: formState.businessLogo,
+					funLogo: formState.funLogo,
+					Instagram: formState.Instagram,
+					linkedin: formState.linkedin
+				}
 			});
 		} catch (e) {
 			console.log(e);
 		}
 	};
 
-	const handleChange = (event) => {
+	const handleChange = event => {
 		const { name, value } = event.target;
 		setFormState({
 			...formState,
-			[name]: value,
+			[name]: value
 		});
 	};
-
 
 	// console.log(user.data.username, user.data.businessLogo, user.data._id)
 	console.log(user);
@@ -141,7 +148,7 @@ const Onboard = () => {
 			<Grid container>
 				<Typography component="h1" className={classes.header}>
 					{' '}
-					{user.data.username}'s Profile{' '}
+					{user?.data?.username}'s Profile{' '}
 				</Typography>{' '}
 			</Grid>
 
