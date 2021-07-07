@@ -34,8 +34,7 @@ export const NEW_USER = gql`
       username
     email
     createdAt
-    }
-  
+    }  
   }
 `;
 

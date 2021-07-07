@@ -12,6 +12,13 @@ const messageReducer = (state, action) => {
                 ...state,
                 users: [...action.payload]
             }
+        // case 'SET_NEW_USERS':
+        //     console.log(state.users);
+        //     usersCopy = state.users.push(addedUser)
+        //     return {
+        //         ...state,
+        //         users: usersCopy,
+        //     }    
         case 'SET_USER_MESSAGES':
             console.log(state.users)
             usersCopy = [...state.users]
@@ -35,8 +42,8 @@ const messageReducer = (state, action) => {
                 users: usersCopy,
             }
         case 'ADD_MESSAGE':
-            console.log(state);
-            console.log("add message");
+            // console.log(state);
+            // console.log("add message");
             usersCopy = [...state.users]
             const addMessage = (theUser) => {
                 console.log(usersCopy);
