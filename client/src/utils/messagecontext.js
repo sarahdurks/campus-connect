@@ -12,13 +12,13 @@ const messageReducer = (state, action) => {
                 ...state,
                 users: [...action.payload]
             }
-        // case 'SET_NEW_USERS':
-        //     console.log(state.users);
-        //     usersCopy = state.users.push(addedUser)
-        //     return {
-        //         ...state,
-        //         users: usersCopy,
-        //     }    
+        case 'SET_NEW_USERS':
+            console.log(state.users);
+            usersCopy = state.users.push(addedUser)
+            return {
+                ...state,
+                users: usersCopy,
+            }    
         case 'SET_USER_MESSAGES':
             console.log(state.users)
             usersCopy = [...state.users]
@@ -46,11 +46,7 @@ const messageReducer = (state, action) => {
             // console.log("add message");
             usersCopy = [...state.users]
             const addMessage = (theUser) => {
-                console.log(usersCopy);
                 userIndex = usersCopy.findIndex((u) => u.username === theUser)
-                console.log(userIndex)
-                // console.log(userIndex2)
-                // userIndex2 = usersCopy.findIndex((u) => u.username === self)
                 message.reactions = []
 
                 let newUser = {
@@ -61,18 +57,7 @@ const messageReducer = (state, action) => {
                         : [],
                     latestMessage: message,
                 }
-
-                // let newUser2 = {
-                //     ...usersCopy[userIndex2],
-                //     updated: new Date(),
-                //     messages: usersCopy[userIndex2].messages
-                //         ? [...usersCopy[userIndex2].messages, message]
-                //         : [],
-                //     latestMessage: message,
-                // }
-
                 usersCopy[userIndex] = newUser
-                // usersCopy[userIndex2] = newUser2
             }
             addMessage(username);
             addMessage(self);
@@ -138,7 +123,6 @@ const messageReducer = (state, action) => {
 
 export const MessageProvider = ({ children }) => {
     const [state, dispatch] = useReducer(messageReducer, { users: [] })
-    console.log(state)
     return (
         <MessageDispatchContext.Provider value={dispatch}>
             <MessageStateContext.Provider value={state}>

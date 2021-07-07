@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -15,14 +14,9 @@ const useStyles = makeStyles({
     root: {
   height: '100vh',
   width: '100vw',
-   
-    
     },
     media: {
       height: '150px',
-   
-      
-   
     },
     card: {
       maxWidth: 650,
