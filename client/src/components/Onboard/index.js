@@ -119,6 +119,10 @@ const Onboard = () => {
 		}
 	};
 	const connectButtonClick = function () {
+		if (!formState.businessLogo || !formState.Instagram || !formState.funLogo || !formState.linkedin) {
+			throw error;
+			return;
+		}
 		try {
 			createProfile({
 				variables: {
@@ -227,6 +231,7 @@ const Onboard = () => {
 							>
 								Connect
 							</Button>
+							
 						</Grid>
 					</Grid>
 				</form>

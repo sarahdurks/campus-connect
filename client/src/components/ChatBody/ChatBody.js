@@ -12,13 +12,16 @@ import Message from './Message';
 import ForumIcon from '@material-ui/icons/Forum';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        padding: theme.spacing(2),
-        height: "100vh",
 
-    },
+import Initial from './chatInitial.js'
+
+const useStyles = makeStyles((theme) => ({
+    // root: {
+    //     flexGrow: 1,
+    //     padding: theme.spacing(2),
+    //     height: "100vh",
+
+    // },
     input: {
         color: "#003262",
         '@media (max-width:600px)': {
@@ -109,7 +112,7 @@ const ChatBody = () => {
 
     let selectedChatMarkup
     if (!messages && !msgLoading) {
-        selectedChatMarkup = <p className="info-text">Select a friend</p>
+       return selectedChatMarkup = <p className="info-text">Select a friend</p> && <Initial/>
 
     } else if (msgLoading) {
         selectedChatMarkup = <p className="info-text">Loading..</p>
