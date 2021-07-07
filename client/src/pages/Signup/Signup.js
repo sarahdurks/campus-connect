@@ -136,7 +136,7 @@ const Signup = props => {
 			setOpen(true);
 			setAlertMsg(error);
 			setSeverity('error');
-			console.error(error);
+			console.log(error);
 		}
 
 		// clear form values
