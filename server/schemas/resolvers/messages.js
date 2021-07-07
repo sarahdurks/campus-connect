@@ -93,6 +93,7 @@ module.exports = {
                     return context.pubsub.asyncIterator('NEW_MESSAGE')
                 },
                 ({ newMessage }, _args, { user }) => {
+                    console.log(user.data.username);
                     if (
                         newMessage.from === user.data.username ||
                         newMessage.to === user.data.username
@@ -106,13 +107,15 @@ module.exports = {
         },
         newReaction: {
             subscribe: withFilter(
-                (_parent, _args, context) => {
-                    if (!context.user) throw new AuthenticationError('Unauthenticated')
-                    return context.pubsub.asyncIterator('NEW_REACTION')
+                (_, __, { pubsub, user }) => {
+                    if (!user) throw new AuthenticationError('Unauthenticated')
+                    return pubsub.asyncIterator('NEW_REACTION')
                 },
-                async ({ newReaction }, _args, { user }) => {
-                    const message = await newReaction.getMessage()
-                    if (message.from === user.data.username || message.to === user.data.username) {
+                async ({ newReaction }, _, { user }) => {
+                    // console.log("newReaction subscription getting hit")
+                    const message = await newReaction.getMessage();
+                    // console.log(`this is the message${message}`);
+                    if (message.from === user.username || message.to === user.username) {
                         return true
                     }
 
@@ -123,4 +126,4 @@ module.exports = {
     },
 }
 
-// Need to check if reactToMessage and subscriptions are working correctly
+// Need to check if newReaction subscriptions are working correctly

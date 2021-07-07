@@ -9,7 +9,7 @@ import { SEND_MESSAGE } from '../../utils/mutations';
 import { GET_MESSAGES } from '../../utils/queries';
 import { useMessageDispatch, useMessageState } from '../../utils/messagecontext';
 import Message from './Message';
- 
+import ForumIcon from '@material-ui/icons/Forum';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 const useStyles = makeStyles((theme) => ({
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         padding: theme.spacing(2),
         height: "100vh",
-        
+
     },
     input: {
         color: "#003262",
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     button: {
         marginTop: "1rem",
         color: "#003262",
-  
+
         borderColor: "grey",
     },
     field: {
@@ -66,11 +66,12 @@ const InputField = withStyles({
 
 const ChatBody = () => {
     const classes = useStyles();
-    const { users } = useMessageState()
+    const { users } = useMessageState();
     const dispatch = useMessageDispatch();
-    const [content, setContent] = useState('')
+    const [content, setContent] = useState('');
     const selectedUser = users?.find((u) => u.selected === true)
     const messages = selectedUser?.messages
+
 
     const [getMsgs, {
         loading: msgLoading, data: msgData },
@@ -109,11 +110,6 @@ const ChatBody = () => {
     let selectedChatMarkup
     if (!messages && !msgLoading) {
         selectedChatMarkup = <p className="info-text">Select a friend</p>
-  
-
-      
-
-
 
     } else if (msgLoading) {
         selectedChatMarkup = <p className="info-text">Loading..</p>
@@ -127,7 +123,7 @@ const ChatBody = () => {
                     </div>
                 )}
             </Fragment>
-        ))
+        )) 
     } else if (messages.length === 0) {
         selectedChatMarkup = (
             <p className="info-text">
@@ -135,41 +131,49 @@ const ChatBody = () => {
             </p>
         )
     }
+    let friend
+    if (selectedUser) friend = (selectedUser.username).toUpperCase();
+    else {friend = ""};
+    
     return (
 
         <div>
-
-                {selectedChatMarkup}
+            <div className="chatBanner">
+                {' '}
+                {/* <ForumIcon></ForumIcon> [CHATFRIEND USERNAME]{' '} */}
+                <ForumIcon></ForumIcon> {friend}{' '}
+            </div>
+            {selectedChatMarkup}
 
             <Box component="form" className={classes.form} onSubmit={handleFormSubmit}>
 
-            <TextField
-      
-           variant="outlined"
-           name='msg'
-           type='text'
-           value={content}
-           onChange={(e) => setContent(e.target.value)}
-           inputProps={{ className: classes.input }}
-           className={classes.field}
-             label="Send Message"
-                placeholder="Send a message..."
-                 InputProps={{
-                   endAdornment: (
-                                   <InputAdornment position="end">
-                                        <Button
-                 
-                   endIcon={<Send />}
-                   type="submit" >
-                  
-               </Button>
-                  </InputAdornment>
-                      ),
+                <TextField
+
+                    variant="outlined"
+                    name='msg'
+                    type='text'
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    inputProps={{ className: classes.input }}
+                    className={classes.field}
+                    label="Send Message"
+                    placeholder="Send a message..."
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <Button
+
+                                    endIcon={<Send />}
+                                    type="submit" >
+
+                                </Button>
+                            </InputAdornment>
+                        ),
                     }}
                 />
             </Box>
 
-            </div>
+        </div>
     )
 }
 

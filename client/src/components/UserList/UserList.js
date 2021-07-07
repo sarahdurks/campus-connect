@@ -75,11 +75,14 @@ const UserList = props => {
 	} else if (users.length > 0) {
 		usersMarkup = users.map(user => {
 			// const selected = selectedUser === user.username
-			let avatar;
+			let avatar
+			console.log(user.profile)
+			// console.log(user.profile[0].businessLogo)
+
 			if (props.data.funAvatar) {
-				avatar = user.funLogo;
+				avatar = user.profile[0]?.funLogo;
 			} else {
-				avatar = user.businessLogo;
+				avatar = user.profile[0]?.businessLogo;
 			}
 			return (
 				<div key={user.username}>

@@ -5,8 +5,10 @@ import {
 	List,
 	Typography,
 	FormControlLabel,
-	Switch
+	Switch,
+	Hidden
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -19,13 +21,6 @@ import CreateIcon from '@material-ui/icons/Create';
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
 import ChatIcon from '@material-ui/icons/Chat';
 import { findLastKey } from 'lodash';
-
-import IconButton from "@material-ui/core/IconButton";
-
-import BackspaceIcon from '@material-ui/icons/Backspace';
-
-import Drawer from "@material-ui/core/Drawer";
-import Rail from '../../components/MobileRail';
 
 const Header = props => {
 	const useStyles = makeStyles(theme => ({
@@ -72,7 +67,7 @@ const Header = props => {
 			}
 		}
 	}));
-	const [open, setOpen] = useState(false);
+
 	const classes = useStyles();
 	const authDispatch = useAuthDispatch();
 	const { user } = useAuthState();
@@ -86,22 +81,34 @@ const Header = props => {
 		<Box component="nav">
 			<AppBar position="static" className={classes.appbar}>
 				<Toolbar className={classes.toolbar}>
-					<Typography component={Button} href="/">
-						<span className={classes.title}>Campus Connect</span>
-					</Typography>
+					<Hidden smDown>
+						<Typography component={Button} component={Link} to="/">
+							<span className={classes.title}>Campus Connect</span>
+						</Typography>
+					</Hidden>
 					<List>
 						{!user ? (
 							<>
-								<Clock
-									className={classes.clock}
-									format={'h:mm a'}
-									style={{ fontSize: '1.2em' }}
-									ticking={true}
-								/>
-								<Button className={classes.listItem} href="/login">
+								<Hidden mdDown>
+									<Clock
+										className={classes.clock}
+										format={'h:mm a'}
+										style={{ fontSize: '1.2em' }}
+										ticking={true}
+									/>
+								</Hidden>
+								<Button
+									className={classes.listItem}
+									component={Link}
+									to="/login"
+								>
 									<DoubleArrowIcon /> Login
 								</Button>
-								<Button className={classes.listItem} href="/signup">
+								<Button
+									className={classes.listItem}
+									component={Link}
+									to="/signup"
+								>
 									<CreateIcon /> Signup
 								</Button>
 							</>
@@ -120,7 +127,11 @@ const Header = props => {
 									onChange={event => props.onChange(event.target.checked)}
 								/>
 
-								<Button className={classes.listItem} href="/chat">
+								<Button
+									className={classes.listItem}
+									component={Link}
+									to="/chat"
+								>
 									<ChatIcon /> Chat
 								</Button>
 								<Button className={classes.listItem} href="/" onClick={logout}>
@@ -131,13 +142,6 @@ const Header = props => {
 					</List>
 				</Toolbar>
 			</AppBar>
-			<IconButton onClick={() => setOpen(true)}>
-                           <BackspaceIcon className={classes.opener}>  </BackspaceIcon>
-                            </IconButton>
-			<Drawer open={open} anchor="left" onClose={() => setOpen(false)}>
-                <Rail
-                />
-            </Drawer>
 		</Box>
 	);
 };

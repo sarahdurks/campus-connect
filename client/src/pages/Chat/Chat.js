@@ -1,23 +1,36 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './chat.css';
 import UserList from '../../components/UserList/UserList';
 import ChatBody from '../../components/ChatBody/ChatBody';
 import { useSubscription } from '@apollo/client';
 import { useAuthState } from '../../utils/auth';
+// import IconButton from '@material-ui/core/IconButton';
 
-import ForumIcon from '@material-ui/icons/Forum';
-import { TextField, Grid, makeStyles, Typography } from '@material-ui/core';
+// import BackspaceIcon from '@material-ui/icons/Backspace';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+
+import Drawer from '@material-ui/core/Drawer';
+import Rail from '../../components/MobileRail';
+
+import { makeStyles } from '@material-ui/core/styles';
 import { useMessageDispatch } from '../../utils/messagecontext';
 import { NEW_MESSAGE, NEW_REACTION } from '../../utils/subscriptions';
 // import { TextField } from '@material-ui/core';
 // import SearchIcon from '@material-ui/icons/Search';
 // import InputAdornment from '@material-ui/core/InputAdornment';
-import Divider from '@material-ui/core/Divider';
-
-import Avatar from '@material-ui/core/Avatar';
+import {
+	Divider,
+	Avatar,
+	Hidden,
+	SwipeableDrawer,
+	Button
+} from '@material-ui/core';
+import { isNonEmptyArray } from '@apollo/client/utilities';
 
 const Chat = props => {
-	const useStyles = makeStyles(() => ({
+
+	const useStyles = makeStyles(theme => ({
+
 		root: {
 			dividerColor: `#F5F5F5`
 		},
@@ -26,6 +39,22 @@ const Chat = props => {
 		}
 	}));
 	const classes = useStyles();
+
+	const [state, setState] = React.useState({
+		right: false
+	});
+
+	const toggleDrawer = (anchor, open) => event => {
+		if (
+			event &&
+			event.type === 'keydown' &&
+			(event.key === 'Tab' || event.key === 'Shift')
+		) {
+			return;
+		}
+
+		setState({ ...state, [anchor]: open });
+	};
 
 	const messageDispatch = useMessageDispatch();
 
@@ -36,19 +65,20 @@ const Chat = props => {
 
 	const { data: reactionData, error: reactionError } =
 		useSubscription(NEW_REACTION);
-
+	console.log(reactionData);
 	useEffect(() => {
 		if (messageError) console.log(messageError);
 
 		if (messageData) {
 			const message = messageData.newMessage;
-			const otherUser =
-				user.username === message.to ? message.from : message.to;
+			const user1 = user.username === message.to ? message.from : message.to;
+			const user2 = user.username === message.to ? message.to : message.from;
 
 			messageDispatch({
 				type: 'ADD_MESSAGE',
 				payload: {
-					username: otherUser,
+					username: user1,
+					self: user2,
 					message
 				}
 			});
@@ -56,43 +86,58 @@ const Chat = props => {
 	}, [messageError, messageData]);
 
 	useEffect(() => {
+		console.log('useeffect for reaction');
 		if (reactionError) console.log(reactionError);
-
+		console.log(reactionData);
 		if (reactionData) {
+			console.log('useeffect for  2');
 			const reaction = reactionData.newReaction;
-			const otherUser =
+			const user1 =
 				user.username === reaction.message.to
 					? reaction.message.from
 					: reaction.message.to;
-
+			const user2 =
+				user.username === reaction.message.to
+					? reaction.message.to
+					: reaction.message.from;
 			messageDispatch({
 				type: 'ADD_REACTION',
 				payload: {
-					username: otherUser,
+					username: user1,
+					self: user2,
 					reaction
 				}
 			});
 		}
 	}, [reactionError, reactionData]);
-
+	const [open, setOpen] = useState(false);
 	return (
 		<div className="messenger">
-			<div className="chatMenu">
-				<div className="chatMenuWrapper">
-					<div className="aligned">
-						<Avatar
-							id="myavatar"
-							src="https://res.cloudinary.com/www-actionnetwork-com/image/upload/v1625022844/Frame_5_jpasit.png"
-							style={{
-								border: '0.1px solid lightgray'
-							}}
-						></Avatar>{' '}
-						<span id="namename" className={classes.text}>
-							{user.data.username}'s Friends
-						</span>
-					</div>
-					<Divider className="dividerColor" />
-					{/* <TextField
+			<Hidden smDown>
+				<div className="chatMenu">
+					<div className="chatMenuWrapper">
+						{/* <IconButton onClick={() => setOpen(true)}>
+							<BackspaceIcon className={classes.opener}> </BackspaceIcon>
+						</IconButton> */}
+						<Drawer open={open} anchor="left" onClose={() => setOpen(false)}>
+							<Rail />
+						</Drawer>
+						<div className="aligned">
+							<Avatar
+								id="myavatar"
+								src="https://res.cloudinary.com/www-actionnetwork-com/image/upload/v1625022844/Frame_5_jpasit.png"
+								style={{
+									border: '0.1px solid lightgray'
+								}}
+							></Avatar>{' '}
+							<span id="namename" className={classes.text}>
+								{user.data.username}'s Friends
+							</span>
+						</div>
+
+						<Divider className="dividerColor" />
+						{/* <TextField
+
                           className="chatMenuInput" variant="outlined"
                   
                            label="Find Friends"
@@ -107,15 +152,29 @@ const Chat = props => {
                                    ),
                                }}
                            /> */}
-					<UserList data={props.data} />
+						<UserList data={props.data} className="mobile-hide" />
+					</div>
 				</div>
-			</div>
+			</Hidden>
+			<Hidden mdUp>
+				{['left'].map(anchor => (
+					<React.Fragment key={anchor}>
+						<Button onClick={toggleDrawer(anchor, true)}>
+							<ChevronRightIcon />
+						</Button>
+						<SwipeableDrawer
+							anchor={anchor}
+							open={state[anchor]}
+							onClose={toggleDrawer(anchor, false)}
+							onOpen={toggleDrawer(anchor, true)}
+						>
+							<Rail data={props.data} />
+						</SwipeableDrawer>
+					</React.Fragment>
+				))}
+			</Hidden>
 			<div className="chatBox">
 				<div className="chatBoxWrapper">
-					<div className="chatBanner">
-						{' '}
-						<ForumIcon></ForumIcon> [CHATFRIEND USERNAME]{' '}
-					</div>
 					<div className="messagesHere">
 						<ChatBody />
 					</div>
