@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
@@ -12,6 +12,7 @@ import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../../utils/mutations';
 import { useAuthDispatch } from '../../utils/auth';
 import { Typography } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles(_theme => ({
 	container: {
@@ -40,25 +41,25 @@ const useStyles = makeStyles(_theme => ({
 	},
 	button: {
 		maxWidth: 750,
-			fontFamily: `Poppins`,
-			width:`100%`,
-			borderRadius: `6px`,
-			bordercolor: `grey`,
-			border: '1px solid #D9EDFF',
-			color: `white`,
-			background: "linear-gradient(180deg, #43688F 0%, #0A3460 100%)",
-			boxshadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-			fontSize: '1.3rem',
-			marginTop: `1vh`,
-		
-			height: `56px`,
-			textalign: 'center',
-			lineheight: '50px',
-			"&:hover": {
-				transition: `0.5s`,
-				background: 'linear-gradient(180deg, #0A3460 0%, #43688F 100%)',  
-				boxshadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',      }
-	
+		fontFamily: `Poppins`,
+		width: `100%`,
+		borderRadius: `6px`,
+		bordercolor: `grey`,
+		border: '1px solid #D9EDFF',
+		color: `white`,
+		background: 'linear-gradient(180deg, #43688F 0%, #0A3460 100%)',
+		boxshadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+		fontSize: '1.3rem',
+		marginTop: `1vh`,
+
+		height: `56px`,
+		textalign: 'center',
+		lineheight: '50px',
+		'&:hover': {
+			transition: `0.5s`,
+			background: 'linear-gradient(180deg, #0A3460 0%, #43688F 100%)',
+			boxshadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'
+		}
 	},
 	field: {
 		margin: '1rem 0rem'
@@ -105,7 +106,7 @@ const Signup = props => {
 		email: '',
 		password: ''
 	});
-
+	const history = useHistory();
 
 	const [addUser, { loading }] = useMutation(ADD_USER, {
 		onError: err => {
@@ -117,7 +118,8 @@ const Signup = props => {
 		onCompleted(data) {
 			console.log(data);
 			dispatch({ type: 'SIGNUP', payload: data.addUser });
-			window.location.href = '/onboard';
+			// window.location.href = '/onboard';
+			history.push('/onboard');
 		}
 	});
 
@@ -141,7 +143,7 @@ const Signup = props => {
 		setVariables({
 			username: '',
 			password: '',
-			email: '',
+			email: ''
 		});
 	};
 
@@ -152,7 +154,9 @@ const Signup = props => {
 				className={classes.form}
 				onSubmit={handleFormSubmit}
 			>
-				<Typography>Welcome, let's connect you to your bootcamp cohort!</Typography>
+				<Typography>
+					Welcome, let's connect you to your bootcamp cohort!
+				</Typography>
 				<InputField
 					fullWidth={true}
 					variant="outlined"
@@ -201,7 +205,9 @@ const Signup = props => {
 				>
 					{loading ? 'loading..' : 'Signup'}
 				</Button>
-				<Typography>Already have an account? Log in <Link to='./login'>here</Link>.</Typography>
+				<Typography>
+					Already have an account? Log in <Link to="./login">here</Link>.
+				</Typography>
 			</Box>
 			<Snackbar
 				open={open}
