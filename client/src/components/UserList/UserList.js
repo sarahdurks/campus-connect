@@ -66,7 +66,7 @@ const UserList = props => {
 
 	const { loading } = useQuery(GET_USERS, {
 		onCompleted: data => {
-			console.log("get users query", data)
+			console.log("aliff is amazing-get users query", data)
 			return dispatch({ type: 'SET_USERS', payload: data.getUsers })},
 		onError: err => console.log(err)
 	});
