@@ -35,8 +35,8 @@ const messageReducer = (state, action) => {
                 users: usersCopy,
             }
         case 'ADD_MESSAGE':
-            console.log(state);
-            console.log("add message");
+            // console.log(state);
+            // console.log("add message");
             usersCopy = [...state.users]
             const addMessage = (theUser) => {
                 console.log(usersCopy);
@@ -55,15 +55,6 @@ const messageReducer = (state, action) => {
                         : [],
                     latestMessage: message,
                 }
-
-                // let newUser2 = {
-                //     ...usersCopy[userIndex2],
-                //     updated: new Date(),
-                //     messages: usersCopy[userIndex2].messages
-                //         ? [...usersCopy[userIndex2].messages, message]
-                //         : [],
-                //     latestMessage: message,
-                // }
 
                 usersCopy[userIndex] = newUser
                 // usersCopy[userIndex2] = newUser2
