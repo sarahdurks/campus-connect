@@ -18,7 +18,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 const useStyles = makeStyles(() => ({
 	menuRail: {
-		width: '280 px',
+		width: '280px',
 		textAlign: 'left',
 		fontFamily: 'Poppins',
 		weight: `800`,

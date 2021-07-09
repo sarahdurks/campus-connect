@@ -25,7 +25,7 @@ const useStyles = makeStyles(_theme => ({
 			marginTop: '2rem',
 			padding: 5
 		},
-		'@media (min-width:1200px)': {
+		'@media (min-width:600px)': {
 			top: '50%',
 			left: '50%',
 			transform: 'translate(-50%, -50%)',
@@ -63,6 +63,14 @@ const useStyles = makeStyles(_theme => ({
 	},
 	field: {
 		margin: '1rem 0rem'
+	},
+	signLogLink: {
+		color: `#003262`,
+		textDecoration: `underline`,
+		fontWeight: `700`,
+		'&:hover': {
+			color: '#fcb418'
+		}
 	}
 }));
 
@@ -111,7 +119,7 @@ const Login = () => {
 		onError: err => {
 			console.log(err.graphQLErrors[0].message);
 			setOpen(true);
-			setAlertMsg(err.graphQLErrors[0].message);
+			setAlertMsg(err.graphQLErrors[0]?.message);
 			setSeverity('error');
 		},
 		onCompleted(data) {
@@ -194,7 +202,11 @@ const Login = () => {
 				</Button>
 				<Typography>
 					{' '}
-					New here? <Link to="./signup">Sign up</Link>!
+					New here?{' '}
+					<Link to="./signup" className={classes.signLogLink}>
+						Sign up
+					</Link>
+					!
 				</Typography>
 			</Box>
 			<Snackbar

@@ -25,7 +25,7 @@ const useStyles = makeStyles(_theme => ({
 			marginTop: '2rem',
 			padding: 5
 		},
-		'@media (min-width:1200px)': {
+		'@media (min-width:600px)': {
 			top: '50%',
 			left: '50%',
 			transform: 'translate(-50%, -50%)',
@@ -63,6 +63,14 @@ const useStyles = makeStyles(_theme => ({
 	},
 	field: {
 		margin: '1rem 0rem'
+	},
+	signLogLink: {
+		color: `#003262`,
+		textDecoration: `underline`,
+		fontWeight: `700`,
+		'&:hover': {
+			color: '#fcb418'
+		}
 	}
 }));
 
@@ -206,7 +214,11 @@ const Signup = props => {
 					{loading ? 'loading..' : 'Signup'}
 				</Button>
 				<Typography>
-					Already have an account? Log in <Link to="./login">here</Link>.
+					Already have an account? Log in{' '}
+					<Link to="./login" className={classes.signLogLink}>
+						here
+					</Link>
+					.
 				</Typography>
 			</Box>
 			<Snackbar

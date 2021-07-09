@@ -8,24 +8,18 @@ import { useAuthState } from '../../utils/auth';
 
 // import BackspaceIcon from '@material-ui/icons/Backspace';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-
-import Drawer from '@material-ui/core/Drawer';
 import Rail from '../../components/MobileRail';
-
-import { makeStyles } from '@material-ui/core/styles';
 import { useMessageDispatch } from '../../utils/messagecontext';
 import { NEW_MESSAGE, NEW_REACTION, NEW_USER } from '../../utils/subscriptions';
-// import { TextField } from '@material-ui/core';
-// import SearchIcon from '@material-ui/icons/Search';
-// import InputAdornment from '@material-ui/core/InputAdornment';
 import {
+	makeStyles,
 	Divider,
 	Avatar,
 	Hidden,
 	SwipeableDrawer,
 	Button
 } from '@material-ui/core';
-import { isNonEmptyArray } from '@apollo/client/utilities';
+// import { isNonEmptyArray } from '@apollo/client/utilities';
 
 const Chat = props => {
 	const useStyles = makeStyles(theme => ({
@@ -36,17 +30,12 @@ const Chat = props => {
 			color: props.data.text
 		}
 	}));
+
 	const classes = useStyles();
 
 	const [state, setState] = React.useState({
 		right: false
 	});
-
-	const [messageUpdate, setMessageUpdate] = React.useState(
-		new Date()
-	)
-
-	
 
 	const toggleDrawer = (anchor, open) => event => {
 		if (
@@ -64,34 +53,29 @@ const Chat = props => {
 
 	const { user } = useAuthState();
 
+	const { data: userData, error: userError } = useSubscription(NEW_USER);
+
 	const { data: messageData, error: messageError } =
 		useSubscription(NEW_MESSAGE);
 
-	// const { data: userData, error: userError } =
-	// 	useSubscription(NEW_USER);
-
 	const { data: reactionData, error: reactionError } =
 		useSubscription(NEW_REACTION);
-	console.log(reactionData);
 
-	// useEffect(() => {
-	// 	if (userError) console.log(userError);
-	// 	if (userData) {
-	// 		console.log("new user created")
-	// 		setMessageUpdate(new Date())
-	// 		// messageDispatch({ type: 'SET_USERS', payload: data.getUsers })
-	// 	}
-	// }, [userData])
 	useEffect(() => {
-		console.log("useEffect message")
+		if (userError) console.log(userError);
+		if (userData) {
+			console.log('new user created', userData);
+			const addedUser = userData.newUser;
+			messageDispatch({ type: 'SET_NEW_USERS', payload: addedUser });
+		}
+	}, [userData]);
+
+	useEffect(() => {
 		if (messageError) console.log(messageError);
-
 		if (messageData) {
-
 			const message = messageData.newMessage;
 			const user1 = user.username === message.to ? message.from : message.to;
 			const user2 = user.username === message.to ? message.to : message.from;
-
 			messageDispatch({
 				type: 'ADD_MESSAGE',
 				payload: {
@@ -104,20 +88,13 @@ const Chat = props => {
 	}, [messageError, messageData]);
 
 	useEffect(() => {
-		console.log('useeffect for reaction');
 		if (reactionError) console.log(reactionError);
-		console.log(reactionData);
 		if (reactionData) {
-			console.log('useeffect for  2');
 			const reaction = reactionData.newReaction;
-			const user1 =
-				user.username === reaction.message.to
-					? reaction.message.from
-					: reaction.message.to;
-			const user2 =
-				user.username === reaction.message.to
-					? reaction.message.to
-					: reaction.message.from;
+			console.log(reaction);
+			const user1 = reaction.username;
+			const user2 = user.data.username;
+			console.log(user1, user2);
 			messageDispatch({
 				type: 'ADD_REACTION',
 				payload: {
@@ -129,17 +106,12 @@ const Chat = props => {
 		}
 	}, [reactionError, reactionData]);
 	const [open, setOpen] = useState(false);
+
 	return (
 		<div className="messenger">
 			<Hidden smDown>
 				<div className="chatMenu">
 					<div className="chatMenuWrapper">
-						{/* <IconButton onClick={() => setOpen(true)}>
-							<BackspaceIcon className={classes.opener}> </BackspaceIcon>
-						</IconButton> */}
-						<Drawer open={open} anchor="left" onClose={() => setOpen(false)}>
-							<Rail />
-						</Drawer>
 						<div className="aligned">
 							<Avatar
 								id="myavatar"
@@ -154,24 +126,7 @@ const Chat = props => {
 						</div>
 
 						<Divider className="dividerColor" />
-						{/* <TextField
-
-                          className="chatMenuInput" variant="outlined"
-                  
-                           label="Find Friends"
-                           type="text"
-                           placeholder="Who do you want to reconnect with?"
-                           InputProps={{
-                               startAdornment: (
-                                   <InputAdornment position="start">
-                                   <SearchIcon />
-                                   </InputAdornment>
-                                  
-                                   ),
-                               }}
-                           /> */}
-						
-						<UserList messageUpdate={messageUpdate} data={props.data} className="mobile-hide" />
+						<UserList data={props.data} className="mobile-hide" />
 					</div>
 				</div>
 			</Hidden>

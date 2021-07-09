@@ -28,7 +28,7 @@ const Header = props => {
 			flexGrow: 1,
 			margin: 0,
 			width: '100%',
-			height: '8vh',
+			height: '4rem',
 			background: props.data.header
 		},
 		toolbar: {
@@ -59,12 +59,16 @@ const Header = props => {
 			color: 'whitesmoke',
 			fontFamily: 'Poppins',
 			fontWeight: 800,
+			textDecoration: 'none',
 			'@media (max-width:1200px)': {
 				fontSize: '1.2rem'
 			},
 			'@media (min-width:1200px)': {
 				fontSize: '1.5rem'
 			}
+		},
+		brand: {
+			height: 48
 		}
 	}));
 
@@ -81,15 +85,29 @@ const Header = props => {
 		<Box component="nav">
 			<AppBar position="static" className={classes.appbar}>
 				<Toolbar className={classes.toolbar}>
-					<Hidden smDown>
-						<Typography component={Button} component={Link} to="/">
-							<span className={classes.title}>Campus Connect</span>
-						</Typography>
-					</Hidden>
+					<List>
+						<Button>
+							<img
+								src="../../../assets/Frame29.png"
+								className={classes.brand}
+							/>
+						</Button>
+						<Hidden xsDown>
+							<Button>
+								<Typography
+									component={Link}
+									style={{ textDecoration: 'none' }}
+									to="/"
+								>
+									<span className={classes.title}>Campus Connect</span>
+								</Typography>
+							</Button>
+						</Hidden>
+					</List>
 					<List>
 						{!user ? (
 							<>
-								<Hidden mdDown>
+								<Hidden smDown>
 									<Clock
 										className={classes.clock}
 										format={'h:mm a'}
@@ -114,12 +132,14 @@ const Header = props => {
 							</>
 						) : (
 							<>
-								<Clock
-									className={classes.clock}
-									format={'h:mm a'}
-									style={{ fontSize: '1.2em' }}
-									ticking={true}
-								/>
+								<Hidden smDown>
+									<Clock
+										className={classes.clock}
+										format={'h:mm a'}
+										style={{ fontSize: '1.2em' }}
+										ticking={true}
+									/>
+								</Hidden>
 								<Switch //https://material-ui.com/components/switches/
 									color="default"
 									name="checkedB"
@@ -132,10 +152,11 @@ const Header = props => {
 									component={Link}
 									to="/chat"
 								>
-									<ChatIcon /> Chat
+									<ChatIcon />
+									<Hidden xsDown>Chat</Hidden>
 								</Button>
 								<Button className={classes.listItem} href="/" onClick={logout}>
-									<ExitToAppIcon /> Logout
+									<ExitToAppIcon /> <Hidden xsDown>Logout</Hidden>
 								</Button>
 							</>
 						)}

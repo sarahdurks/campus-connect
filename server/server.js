@@ -1,4 +1,5 @@
 // import packages and varialbes needed
+require('dotenv').config();
 const http = require('http');
 const { ApolloServer } = require('apollo-server-express');
 const express = require('express');
@@ -6,7 +7,6 @@ const { typeDefs, resolvers } = require('./schemas');
 const path = require('path');
 const db = require('./config/connection');
 const { authMiddleware } = require('./utils/auth');
-require('dotenv').config();
 
 // Intergrating apolloserver with express and subscription
 async function startApolloServer() {
@@ -30,11 +30,6 @@ async function startApolloServer() {
 	app.use(express.urlencoded({ extended: true }));
 	app.use(express.json());
 
-	// if we're in production, serve client/build as static assets
-	if (process.env.NODE_ENV === 'production') {
-		app.use(express.static(path.join(__dirname, '../client/build')));
-	}
-
 	// Make sure to call listen on httpServer, NOT on app.
 	await new Promise(resolve => httpServer.listen(PORT, resolve));
 	console.log(
@@ -44,6 +39,11 @@ async function startApolloServer() {
 		`🚀 Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`
 	);
 	return { server, app, httpServer };
+}
+
+// if we're in production, serve client/build as static assets
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
 // app.get('*', (_req, res) => {
