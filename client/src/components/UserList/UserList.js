@@ -68,15 +68,16 @@ const UserList = props => {
 		onCompleted: data => {
 			console.log("aliff is amazing-get users query", data)
 			return dispatch({ type: 'SET_USERS', payload: data.getUsers })},
-		onError: err => console.log(err)
+		onError: err => console.log(err),
+        fetchPolicy: "network-only"
 	});
 
 	const { data: userData, error: userError } = useSubscription(NEW_USER);
 
 	useEffect(()=> {
 		
-		console.log("Changed to NEWUSERDATA", userData);
-		console.log("USERS", users);
+		// console.log("Changed to NEWUSERDATA", userData);
+		// console.log("USERS", users);
 		if(userData) {
 
 			dispatch({ type: 'SET_USERS', payload: [...users, {profile: [], ...userData.newUser}] })

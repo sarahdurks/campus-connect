@@ -4,9 +4,6 @@ import UserList from '../../components/UserList/UserList';
 import ChatBody from '../../components/ChatBody/ChatBody';
 import { useSubscription } from '@apollo/client';
 import { useAuthState } from '../../utils/auth';
-// import IconButton from '@material-ui/core/IconButton';
-
-// import BackspaceIcon from '@material-ui/icons/Backspace';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import Drawer from '@material-ui/core/Drawer';
@@ -74,7 +71,7 @@ const Chat = props => {
 
 	const { data: reactionData, error: reactionError } =
 		useSubscription(NEW_REACTION);
-	console.log(reactionData);
+	// console.log(reactionData);
 
 	// useEffect(() => {
 	// 	if (userError) console.log(userError);
@@ -85,7 +82,7 @@ const Chat = props => {
 	// 	}
 	// }, [userData])
 	useEffect(() => {
-		console.log("useEffect message")
+		// console.log("useEffect message")
 		if (messageError) console.log(messageError);
 
 		if (messageData) {
@@ -106,9 +103,9 @@ const Chat = props => {
 	}, [messageError, messageData]);
 
 	useEffect(() => {
-		console.log('useeffect for reaction');
+		// console.log('useeffect for reaction');
 		if (reactionError) console.log(reactionError);
-		console.log(reactionData);
+		// console.log(reactionData);
 		if (reactionData) {
 			console.log('useeffect for  2');
 			const reaction = reactionData.newReaction;

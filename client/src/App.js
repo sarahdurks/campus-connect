@@ -34,7 +34,7 @@ function App() {
 	}, [themeToggle]);
 
 	useEffect(() => {
-		console.log(currentTheme);
+		// console.log(currentTheme);
 	}, [currentTheme]);
 
 	const useStyles = makeStyles({
