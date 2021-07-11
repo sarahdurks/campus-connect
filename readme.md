@@ -8,7 +8,7 @@ Our motivation was not only to test the limits of our skillset by using React, G
 
 We wanted to create a chat application made specifically for Coding Bootcamp alums with both professional & personal networking and some fun features. The team leveraged the skills developed in bootcamp to create a way to connect the people with whom those skills were built. The Campus Connect Development Team hope this app will be used to stay in touch, support each other in our job searches, and facilitate tech career progression!
 
-The application is deployed on [https://campus-connect21.herokuapp.com](https://campus-connect21.herokuapp.com)
+The application is deployed on [camp-us-connect.herokuapp.com](camp-us-connect.herokuapp.com)
 You can also view the [Campus Connect Github Repository](https://github.com/Clayto30/campus-connect)
 
 <img width="1216" alt="Screen Shot 2021-07-08 at 3 55 12 PM" src="https://user-images.githubusercontent.com/77648727/125000287-efa52280-e004-11eb-88f7-164644671e4d.png">
