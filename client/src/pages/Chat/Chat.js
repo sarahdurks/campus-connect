@@ -17,7 +17,6 @@ import {
 	SwipeableDrawer,
 	Button
 } from '@material-ui/core';
-// import { isNonEmptyArray } from '@apollo/client/utilities';
 
 const Chat = props => {
 	const useStyles = makeStyles(theme => ({

@@ -12,7 +12,6 @@ import { useAuthState } from '../../utils/auth';
 import { Link } from 'react-router-dom';
 import { CREATE_PROFILE } from '../../utils/mutations';
 import { useLazyQuery, useMutation } from '@apollo/client';
-// import FunModal, { handleFunModal } from '../FunModal';
 import Avatar from '@material-ui/core/Avatar';
 const useStyles = makeStyles(theme => ({
 	root: {

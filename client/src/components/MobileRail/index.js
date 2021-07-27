@@ -1,19 +1,11 @@
 import React from 'react';
 //Material UI Items
 import Divider from '@material-ui/core/Divider';
-// import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import UserList from '../../components/UserList/UserList';
-// import { MessageProvider } from '../../utils/messagecontext';
 import { useAuthState } from '../../utils/auth';
-
-// import ForumIcon from '@material-ui/icons/Forum';
-// import Send from '@material-ui/icons/Send';
-// import SearchIcon from '@material-ui/icons/Search';
 import Avatar from '@material-ui/core/Avatar';
-// import InputAdornment from '@material-ui/core/InputAdornment';
-// import TextField from "@material-ui/core/TextField";
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 const useStyles = makeStyles(() => ({
@@ -100,6 +92,3 @@ const Rail = props => {
 };
 
 export default Rail;
-
-// TO DO: SHOULD ONLY SHOW ON THE CHAT PAGE - OTHERWISE, NOT USEFUL
-// HIDE IF ON A BIGGER DEVICE, SHOULD LINK WITH TRANSITION OF REGULAR "MENU" OF FRIENDS

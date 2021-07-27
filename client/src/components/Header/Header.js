@@ -4,7 +4,6 @@ import {
 	Toolbar,
 	List,
 	Typography,
-	FormControlLabel,
 	Switch,
 	Hidden
 } from '@material-ui/core';
